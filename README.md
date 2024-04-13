@@ -12,7 +12,7 @@
   - Data Cleaning
 - Data Analysis by Python
 - Result Interpretation
-  - Insight
+  - Statistical Summary
   - Recommendation
 - Visualization by Tableau
 - Conclusion
@@ -36,22 +36,18 @@ Upwork.com is a key platform for data scientists pursuing remote work. This proj
 This project analyses remote working conditions for data scientists using data from Upwork.com. The process involved extracting data with SQL, cleaning and transforming it in a staging area, and analyzing it using Python in Jupyter Notebook. Insights were visualised through a Tableau dashboard, providing actionable business intelligence on geographic arbitrage opportunities for data scientists.
 
 ### Aims Grid
-1. Purpose: What? Why? What do we want to achieve?
-
+#### 1. Purpose: What? Why? What do we want to achieve?
 To conduct a comprehensive analysis of geographic arbitrage for remote-working data scientists. To evaluate and compare the economic benefits such as salaries, cost of living, and tax conditions across different global locations. The aim is to illustrate the most advantageous locations for remote data scientists, facilitating informed, strategic decision-making to enhance the work conditions and economic benefits.
 
-2. Stake Holders: Who will be involved?
-
+#### 2. Stake Holders: Who will be involved?
 - Data Scientist interested in remote work opportunities
 - Policy maker
 - Platform providers like Upwork.com
 
-3. End Result: What do we want to achieve?
-
+#### 3. End Result: What do we want to achieve?
 A detailed report, a set of actionable insights and recommendations.
 
-4. Success Criteria: What will be our success criteria?
-
+#### 4. Success Criteria: What will be our success criteria?
 - Establishment of a clear, ranked list of locations with the best overall conditions for remote data scientists.
 - Positive feedback and utility from the intended audience (data scientists) about remote work locations.
 - A published set of recommendations that are adopted by at least one company or have influenced policy adjustments.
@@ -65,7 +61,50 @@ The primary dataset from Upwork.com provides foundational information about data
 - internet broadband and mobile speeds by country
 - World Happiness Index by Reports 2013-2023 no nulls
 ### Data Cleaning
-SQL Query
+Due to constraints in my current laptop setup, MySQL is unavailable. Nevertheless, given the manageable size of the data, I have opted to import it into Microsoft Access. As analysts, it's crucial for us to remain flexible and adapt our methods to ensure that our work progresses smoothly under any circumstances.
+
+1. Create a table
+This query creates a new table named 'geographic_arbitrage' with columns for country data, number of data scientists, various cost metrics, happiness index, internet speeds, tax burden, average hourly rate, job success rate, and total hours and jobs.
+```sql
+CREATE TABLE geographic_arbitrage (
+    Country TEXT(255),
+    NumDataScientists INTEGER,
+    AvgMcDonaldsMealCost DOUBLE,
+    AvgInternetCost DOUBLE,
+    HappinessIndex DOUBLE,
+    BroadbandMbps DOUBLE,
+    MobileMbps DOUBLE,
+    TaxBurden DOUBLE,
+    AvgHourlyRate DOUBLE,
+    AvgJobSuccess DOUBLE,
+    Avgtotalhours INTEGER,
+    Avgtotaljobs INTEGER
+);
+```
+
+2. 
+```sql
+SELECT * FROM customers;
+```
+3. 
+```sql
+SELECT * FROM customers;
+```
+4. 
+```sql
+SELECT * FROM customers;
+```
+5. 
+```sql
+SELECT * FROM customers;
+```
+6. 
+```sql
+SELECT * FROM customers;
+```
+
+
+
 
 ## Data Analysis by Python
 ### Data Overview
@@ -112,48 +151,25 @@ Constructs a composite score combining various metrics to assess remote work via
 Presents the results from a regression analysis exploring the relationship between the newly developed composite score and the happiness index, aiming to identify predictive relationships.
 
 ## Result Interpretation 
-### Data Coverage and Variables:
-The dataset includes 25 countries with metrics such as number of data scientists, cost of living (e.g., McDonald's meal cost), internet costs, happiness index, broadband and mobile Mbps, tax burden, average hourly rate, job success rate, total hours worked, and number of jobs.
+### Statistical Summary
+This dataset spans 25 countries and includes metrics like the number of data scientists, McDonald's meal cost, internet costs, happiness index, broadband and mobile Mbps speeds, tax burden, average hourly rate, job success rate, total hours worked, and number of jobs. Key findings include:
 
-### Statistical Summary:
-On average, countries have around 5 data scientists, with a maximum of 39 in one country.
-Average internet cost across the countries is $32.44, while the average broadband speed is about 47.51 Mbps.
-The dataset shows a high average tax burden of 77.5%, with an average hourly rate of $42.16 and a job success rate of 94.2%.
+#### 1. Economic and Job-Related Insights
+The average presence of 5 data scientists per country peaks at 39 in one nation. Internet costs average at $32.44, with broadband speeds around 47.51 Mbps and a high tax burden of 77.5%. The average hourly rate is $42.16, and the job success rate is 94.2%. Notably, higher wages don’t always correlate with lower living costs or higher job success rates, reflecting diverse economic conditions. Turkey, Ukraine, and the USA are optimal for data scientists based on salary-to-cost-of-living ratios and net disposable income.
 
-### Economic and Job-related Insights:
-Countries with higher average hourly rates do not necessarily have low living costs or high job success rates, indicating diverse economic conditions.
-The analysis provides specific insights into countries with favorable conditions for data scientists based on salary-to-cost-of-living ratios, tax conditions, and net disposable income. For instance, Turkey, Ukraine, and the United States feature prominently as favorable destinations based on these metrics.
+#### 2. Remote Work Conditions
+A "Remote Work Score" combines broadband speed, mobile Mbps, and internet costs to evaluate remote working environments. Top scores were observed in Ukraine, Finland, and Turkey, indicating excellent remote work infrastructure.
 
-### Remote Work Conditions:
-The document also calculates a "Remote Work Score" based on broadband speed, mobile Mbps, and internet costs. Countries like Ukraine, Finland, and Turkey scored highest, suggesting they have the best conditions for remote work among the surveyed nations.
+#### 3. Correlation and Regression Analysis
+The "Composite Score," which integrates all key metrics, correlates weakly with the happiness index (R-squared = 0.103), suggesting other factors might influence happiness. This score, however, indicates a significant positive relationship with the happiness index, emphasizing the role of balanced economic and infrastructure metrics in enhancing quality of life.
 
-### Correlation and Regression Analysis:
-A regression analysis explores the relationship between a constructed "Composite Score" (integrating all key metrics) and the happiness index. The model indicates a low R-squared value of 0.103, suggesting that the composite score only explains about 10.3% of the variance in happiness index among these countries.
-
-### Insights
-Composite Score Development
-The development of a composite score that incorporates broadband speed, mobile Mbps, internet cost, and other economic indicators allows for an integrated assessment of remote work conditions.
-Countries scoring high on the composite score, such as Turkey and Ukraine, not only offer good digital infrastructure but also favorable cost-of-living conditions relative to salary.
-
-### Regression Analysis Results
-The regression analysis demonstrates a significant, albeit moderate, positive relationship between the composite score and the happiness index. This finding reinforces the importance of balanced economic and infrastructure metrics in supporting a high quality of life.
-
-### Recommendation
-Enhancing Digital Infrastructure
-For Governments: Invest in upgrading digital infrastructure, especially broadband and mobile internet services, to improve the quality of remote working environments. This can also include subsidies for high-speed internet in rural and underserved areas to attract remote workers.
-
-### Improving Economic Conditions
-For Policy Makers: Consider revising tax policies to create more favorable conditions for remote workers which can include tax deductions on home office expenses and internet bills.
-For Employers: Implement flexible salary structures that consider local cost-of-living and tax conditions to maintain high levels of employee engagement and productivity.
-
-### Targeted Support and Resources
-For HR Departments: Develop targeted support programs that address the specific needs of remote workers, such as mental health support, ergonomic assessments for home offices, and continuous professional development opportunities.
-Data-Driven Location Strategies
-For Business Strategists: Use data-driven insights to determine the best countries or cities for expanding remote teams, considering both economic factors and infrastructure quality. This approach can maximize employee satisfaction and retention.
-### Regular Data Review
-For Analysts and Stakeholders: Continually monitor and review the data on remote work conditions to stay responsive to changing trends and employee feedback. This iterative analysis can help refine policies and strategies to better support remote workers.
+### Recommendations
+1. For Governments, improve remote work environments by upgrading digital infrastructures, such as broadband and mobile internet services, including subsidies for high-speed internet in rural areas.
+2. For Policy Makers, revise tax policies to benefit remote workers, possibly including deductions for home office expenses and internet bills.
 
 ## Visualization
 Tableau Public Dashboards: 
 
 ## Conclusion
+### Regular Data Review
+For Analysts and Stakeholders: Continually monitor and review the data on remote work conditions to stay responsive to changing trends and employee feedback. This iterative analysis can help refine policies and strategies to better support remote workers.
