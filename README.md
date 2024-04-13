@@ -82,28 +82,62 @@ CREATE TABLE geographic_arbitrage (
 );
 ```
 
-2. 
+2. Upwork data
+This query aggregates data from the 'upwork_data_scientists' table to get the count of data scientists and average metrics per country.
 ```sql
-SELECT * FROM customers;
+SELECT upwork_data_scientists.Country, Count(*) AS NumDataScientists, Round(Avg(HourlyRate),2) AS AvgHourlyRate, Round(Avg(JobSuccess),2) AS AvgJobSuccess, Round(Avg(TotalHours),2) AS AvgTotalHours, Round(Avg(TotalJobs),2) AS AvgTotalJobs
+FROM upwork_data_scientists
+GROUP BY upwork_data_scientists.Country;
 ```
-3. 
+3. Change name
+This query corrects country names in the 'economic_freedom' table to match with other data sources for consistency. */\
 ```sql
-SELECT * FROM customers;
+SELECT IIF(Name = 'Türkiye', 'Turkey',
+        IIF(Name = 'The Philippines', 'Philippines', Name)) AS Country, [Tax burden] AS TaxBurden
+FROM economic_freedom;
 ```
-4. 
+4. Change name and select data
+Correct the country name in the 'world_happiness' table for the year 2022 and selects the happiness index.
 ```sql
-SELECT * FROM customers;
+SELECT IIf([Country] = 'Turkiye', 'Turkey', [Country]) AS CorrectedCountry, world_happiness.[Index] AS HappinessIndex
+FROM world_happiness
+WHERE world_happiness.[year] = 2022;
 ```
-5. 
+5. Data from internet speed
+Join the 'internet_speed' table with the 'upwork_data_scientists' table to match internet speed data with countries where data scientists are located.
 ```sql
-SELECT * FROM customers;
+SELECT isp.country, isp.[broadband mbps], isp.[mobile mbps]
+FROM internet_speed AS isp INNER JOIN upwork_data_scientists AS uds ON isp.country = uds.Country;
 ```
-6. 
+6. Data from cost of living
+Aggregate cost of living data by country, calculating the average cost of a McDonald's meal and internet, only considering records with a data quality flag of 1.
 ```sql
-SELECT * FROM customers;
+SELECT country, ROUND(AVG(x3), 2) AS AvgMcDonaldsMealCost, ROUND(AVG(x38), 2) AS AvgInternetCost
+FROM cost_of_living
+WHERE data_quality = 1
+GROUP BY country;
 ```
-
-
+7. Insert data into table
+Combine all the collected data into the 'geographic_arbitrage' table, aligning the different data points by country.
+```sql
+INSERT INTO geographic_arbitrage ( Country, NumDataScientists, AvgHourlyRate, AvgJobSuccess, AvgMcDonaldsMealCost, AvgInternetCost, AvgTotalHours, AvgTotalJobs, HappinessIndex, BroadbandMbps, MobileMbps, TaxBurden )
+SELECT uds.Country, uds.NumDataScientists, uds.AvgHourlyRate, uds.AvgJobSuccess, col.AvgMcDonaldsMealCost, col.AvgInternetCost, uds.AvgTotalHours, uds.AvgTotalJobs, h.HappinessIndex, isp.[Broadband Mbps], isp.[Mobile Mbps], ef.TaxBurden
+FROM (((aggregated_upwork_ds AS uds LEFT JOIN preprocessed_col AS col ON uds.Country = col.country) LEFT JOIN happiness AS h ON uds.Country = h.CorrectedCountry) LEFT JOIN internet_speed AS isp ON uds.Country = isp.country) LEFT JOIN change_name_eco AS ef ON uds.Country = ef.Country;
+```
+8. Filter for useful dat
+This query selects records from the 'geographic_arbitrage' table that meet certain criteria, such as having a minimum number of total jobs and non-null country values.
+```sql
+SELECT *
+FROM geographic_arbitrage
+WHERE Avgtotaljobs >= 5
+AND Country IS NOT NULL;
+```
+9. Add missing data
+Add a default tax burden value for Yemen, where the data was missing.
+```sql
+UPDATE geographic_arbitrage SET TaxBurden = 91.5
+WHERE Country = 'Yemen';
+```
 
 
 ## Data Analysis by Python
@@ -122,34 +156,189 @@ AvgJobSuccess: Average job success rate on a scale of 0 to 1.
 Avgtotalhours: Average total hours worked by the data scientists.
 Avgtotaljobs: Average total jobs completed by the data scientists.
 
-#### Import data
-Data is loaded into a pandas DataFrame from a structured Excel file, ensuring the availability of a robust dataset for analysis.
+#### Installation Cell
+The installation line is standard for setting up the environment
+```python
+pip install pandas openpyxl
+```
+#### Imports and Initialization
+Initialise the necessary libraries and loads the dataset into a pandas DataFrame.
+```python
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-#### Missing Data&Inconsistencies
-Thorough checks for missing values and inconsistencies are performed, confirming data integrity.
+# Define the path to the Excel file
+file_path = 'my_path/cleaned_data.xlsx'
 
-#### Variable Classification
-Variables are categorized based on their nature and roles (e.g., categorical vs. numeric), facilitating tailored analytical approaches for different data types.
+# Try to load the data into a DataFrame and handle potential errors
+try:
+data = pd.read_excel(file_path, engine='openpyxl')
+except Exception as e:
+print(f"An error occurred while loading the Excel file: {e}") raise
 
-#### Exploratory Data Analysis
-Descriptive Statistics
-Offers basic statistical summaries that provide a snapshot of the central tendencies and variability within the dataset.
+# Display the first few rows and DataFrame info
+print("First few rows of the DataFrame:") print(data.head())
+print("\nDataFrame Info:")
+data.info()
+```
+#### Missing Data and Summarization
+Generating summary statistics and checking for missing data.
+```python
+ # Calculate summary statistics and check for missing values
+summary_stats = data.describe() missing_values = data.isnull().sum()
 
-#### Distribution Analysis
-Investigates the distribution of key variables to identify patterns or anomalies in the data.
+print("Summary Statistics:")
+print(summary_stats)
+print("\nMissing Values by Column:")
+print(missing_values)
+```
+#### Exploratory Data Analysis (EDA)
+Include statistical summaries, value counts, and correlation matrices, along with a heatmap visualization.
+```python
+ # Generate descriptive statistics summary for numeric variables
+numeric_stats = data.describe()
 
-#### Correlation Analysis
-Examines the relationships between pairs of variables to understand the dynamics and dependencies among them.
+# Display the frequency distribution of countries
+country_distribution = data['Country'].value_counts()
 
-#### Metric Visualization
-Uses graphs such as histograms and heatmaps to visualize data distributions and correlations, enhancing the interpretability of complex relationships.
+print("Descriptive Statistics Summary:")
+print(numeric_stats)
+print("\nCountry Frequency Distribution:")
+print(country_distribution)
 
-#### Composite Score Development
-Constructs a composite score combining various metrics to assess remote work viability across different geographies.
+# Calculate the correlation matrix for numeric columns and visualize it
+numeric_data = data.select_dtypes(include=[np.number])
+correlation_matrix = numeric_data.corr()
 
-#### Regression Analysis 
-Presents the results from a regression analysis exploring the relationship between the newly developed composite score and the happiness index, aiming to identify predictive relationships.
+sns.set(style="whitegrid")
+plt.figure(figsize=(12, 10))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+plt.title('Heatmap of Correlation Matrix')
+plt.show()
+```
+#### Histograms for Distribution Analysis
+Create histograms to visualise multiple distributions.
+```python
+# Plot histograms for selected numeric columns
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+columns = ['AvgHourlyRate', 'AvgMcDonaldsMealCost', 'TaxBurden']
+titles = ['Distribution of Avg Hourly Rate', 'Distribution of Avg McDonalds Meal Cost', 'Distribution of Tax Burden'] colors = ['skyblue', 'salmon', 'lightgreen']
 
+for ax, col, title, color in zip(axes, columns, titles, colors):
+    data[col].plot(kind='hist', ax=ax, bins=10, color=color, edgecolor='black')
+    ax.set_title(title)
+    ax.set_xlabel(col)
+
+plt.tight_layout()
+plt.show()
+```
+#### Salary-to-Cost-of-Living Ratios
+Calculating new derived metrics (Salary-to-Cost-of-Living Ratio) and sorting by these to derive insights.
+```python
+# Calculate Salary-to-Cost-of-Living Ratios and sort to find top countries
+data['Salary_to_Cost_of_Living_Ratio'] = data['AvgHourlyRate'] / data['AvgMcDonaldsMealCost']
+sorted_ratios = data[['Country', 'Salary_to_Cost_of_Living_Ratio']].sort_values(by='Salary_to_Cost_of_Living_Ratio', ascending=False)
+print("Top 3 countries by Salary-to-Cost-of-Living Ratio:")
+print(sorted_ratios.head(3))
+```
+#### Tax Condition
+Sorting and deriving insights regarding tax condition.
+```python
+# Sort the data by the TaxBurden column in ascending order to find the regions with the lowest tax burdens
+sorted_tax_burdens = data[['Country', 'TaxBurden']].sort_values(by='TaxBurden')
+
+# Display the countries with the lowest tax burdens
+print("\nTop 3 countries by Tax Condition:")
+print(sorted_tax_burdens.head(3))
+```
+#### Net Disposable Income
+Sorting and deriving insights regarding net disposable income.
+```python
+# Calculate Net Disposable Income and sort to find top countries
+data['Net_Disposable_Income'] = data['AvgHourlyRate'] * (1 - data['TaxBurden'] / 100) - data['AvgMcDonaldsMealCost']
+sorted_net_income = data[['Country', 'Net_Disposable_Income']].sort_values(by='Net_Disposable_Income', ascending=False)
+print("\nTop 3 countries by Net Disposable Income:")
+print(sorted_net_income.head(3))
+```
+#### Remote Work Conditions 
+Creating a composite score for remote work conditions and then analyzing these scores is a strategic use of the data.
+```python
+# Calculate the Remote Work Score for each country
+data['Remote_Work_Score'] = (data['BroadbandMbps'] + data['MobileMbps']) / data['AvgInternetCost']
+
+# Sort the data by this new column in descending order to find the best conditions for remote work
+sorted_remote_work = data[['Country', 'Remote_Work_Score']].sort_values(by='Remote_Work_Score', ascending=False)
+
+# Display the top countries with the best conditions for remote work
+print("\nTop 3 countries by Remote Work Condition:")
+print(sorted_remote_work.head(3))
+```
+
+#### Employment Opportunities and Infrastructure
+Calculates correlation coefficients to explore relationships between job availability and internet infrastructure, which are pertinent in studies of economic conditions and remote work viability.
+```python
+# Calculate the correlation between employment opportunities (Avgtotaljobs) and internet speeds (BroadbandMbps, MobileMbps)
+correlation_jobs_broadband = data['Avgtotaljobs'].corr(data['BroadbandMbps'])
+correlation_jobs_mobile = data['Avgtotaljobs'].corr(data['MobileMbps'])
+
+(correlation_jobs_broadband, correlation_jobs_mobile)
+```
+
+#### Regression Analysis
+The regression analysis section includes normalization of features, model fitting, and plotting, providing a robust statistical examination of the relationship between a constructed composite score vs. a happiness index
+```python
+from sklearn.preprocessing import MinMaxScaler import statsmodels.api as sm
+
+# Selecting relevant columns for Composite Score calculation
+relevant_columns = ['AvgMcDonaldsMealCost', 'AvgInternetCost', 'BroadbandMbps', 'MobileMbps', 'TaxBurden', 'AvgHourlyRate', 'AvgJobSuccess']
+
+# Extracting the relevant columns for processing
+features = data[relevant_columns]
+
+# Initialize a MinMaxScaler
+scaler = MinMaxScaler()
+
+# Normalize the features (MinMax Scaling)
+normalized_features = scaler.fit_transform(features)
+
+# Inverting values where lower is better (Costs and TaxBurden)
+normalized_features[:, 0] = 1 - normalized_features[:, 0] # AvgMcDonaldsMealCost
+normalized_features[:, 1] = 1 - normalized_features[:, 1] # AvgInternetCost
+normalized_features[:, 4] = 1 - normalized_features[:, 4] # TaxBurden
+
+# Calculate the Composite Score as the mean of all normalized features
+data['CompositeScore'] = normalized_features.mean(axis=1)
+
+# Check the first few rows of the dataframe with the new CompositeScore column
+data.head(), data[['HappinessIndex', 'CompositeScore']].corr()
+
+# Setting up the data for regression
+X = sm.add_constant(data['CompositeScore']) # adding a constant for the intercept
+Y = data['HappinessIndex']
+
+# Fit the regression model
+model = sm.OLS(Y, X).fit()
+
+# Summary of the regression model
+regression_summary = model.summary()
+
+# Prepare data for plotting
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 6))
+plt.scatter(data['CompositeScore'], data['HappinessIndex'], alpha=0.7, label='Data points')
+plt.plot(data['CompositeScore'], model.predict(X), color='red', label='Regression Line')
+plt.title('Regression Analysis: Happiness Index vs. Composite Score')
+plt.xlabel('Composite Score')
+plt.ylabel('Happiness Index')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+regression_summary
+```
 ## Result Interpretation 
 ### Statistical Summary
 This dataset spans 25 countries and includes metrics like the number of data scientists, McDonald's meal cost, internet costs, happiness index, broadband and mobile Mbps speeds, tax burden, average hourly rate, job success rate, total hours worked, and number of jobs. Key findings include:
@@ -171,5 +360,9 @@ The "Composite Score," which integrates all key metrics, correlates weakly with 
 Tableau Public Dashboards: 
 
 ## Conclusion
-### Regular Data Review
-For Analysts and Stakeholders: Continually monitor and review the data on remote work conditions to stay responsive to changing trends and employee feedback. This iterative analysis can help refine policies and strategies to better support remote workers.
+Driven by a profound personal interest, this project has established the foundation for my venture into data analytics, providing essential insights into the remote work environment for data scientists, based on 2022 data from Upwork.com spanning 25 countries. While aware of its limitations in scope, this undertaking is a vital first stride toward mastering analytical complexities. As I advance, my aim is to augment this fundamental work and branching into further fields that pique my curiosity.
+
+### limitation
+- This project is anchored in 2022 data primarily sourced from Upwork.com, which, might not encompass the global remote work landscape for data scientists in its entirety. With representation from 25 countries, the study may not capture the full geographic diversity, potentially limiting the broader applicability of its insights. As economic conditions such as cost of living, tax rates, and internet costs evolve, the project's conclusions will require regular updates to remain relevant.
+- Discrepancies in data reporting standards and the economic realities across different countries pose a challenge for creating uniform cross-country comparisons. These factors must be considered when interpreting the study's findings and underscore the necessity for ongoing data monitoring and review to adapt to the dynamic remote work environment.
+- The current regression model, indicating a low R-squared value, hints at the existence of other significant variables not included in the analysis that may influence the happiness index. The devised "Remote Work Score," while a useful tool, is constructed from selectively weighted metrics that may not fully reflect the multifaceted nature of remote work quality. Additionally, internet quality assessments based on Mbps metrics do not address the critical aspects of connectivity stability and reliability.
