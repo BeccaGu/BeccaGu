@@ -1,6 +1,6 @@
 # Remote Working Insights for Data Scientists on Upwork.com - SQL | Python | Tableau
 
-#### I am pleased to present 'Remote Working Insights of Geographic Arbitrage for Data Scientists: A Data Analysis Project,' which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
+#### I am pleased to present 'Remote Working Insights of Geographic Arbitrage for Data Scientists👩‍💻: A Data Analysis Project,' which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
 
 ## Outline
 - Introduction
@@ -15,7 +15,9 @@
   - Statistical Summary
   - Recommendation
 - Visualization by Tableau
-- Conclusion
+- Wrap up
+  - My thought
+  - limitation
 
 ## Introduction
 Upwork.com is a key platform for data scientists pursuing remote work. This project explores geographic arbitrage by analyzing salaries, living costs, and taxes across different global regions. Using data from Upwork and other sources, the analysis identifies the most economically advantageous locations for remote data scientists. By integrating metrics like internet quality and local taxation, this initiative aims to optimize economic benefits and support strategic decision-making for data scientists working remotely.
@@ -359,7 +361,8 @@ The "Composite Score," which integrates all key metrics, correlates weakly with 
 ## Visualization
 Tableau Public Dashboards: 
 
-## Conclusion
+## Wrap up
+### My thought
 Driven by a profound personal interest, this project has established the foundation for my venture into data analytics, providing essential insights into the remote work environment for data scientists, based on 2022 data from Upwork.com spanning 25 countries. While aware of its limitations in scope, this undertaking is a vital first stride toward mastering analytical complexities. As I advance, my aim is to augment this fundamental work and branching into further fields that pique my curiosity.
 
 ### limitation
