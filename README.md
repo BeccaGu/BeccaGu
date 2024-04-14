@@ -1,6 +1,6 @@
 # Remote Working Insights for Data Scientists on Upwork.com - SQL | Python | Tableau
 
-#### I am pleased to present 'Remote Working Insights for Data Scientists on Upwork.com👩‍💻: A Data Analysis Project,' which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
+#### I am pleased to present "Remote Working Insights for Data Scientists on Upwork.com👩‍💻: A Data Analysis Project", which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
 
 ## Outline
 - Introduction
