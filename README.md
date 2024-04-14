@@ -57,11 +57,11 @@ A detailed report, a set of actionable insights and recommendations.
 ## Data Preparation 
 The primary dataset from Upwork.com provides foundational information about data scientists' salaries, job frequency, and the nature of remote work engagements. However, to perform a comprehensive analysis, it is crucial to incorporate broader factors.The additional datasets were chosen by providing context on living costs, tax rates, and internet quality across different locations. 
 ### Data Source
-- upwork_data_scientists
-- cost-of-living_v2
-- economic_freedom
-- internet broadband and mobile speeds by country
-- World Happiness Index by Reports 2013-2023 no nulls
+- upwork_data_scientists: https://www.kaggle.com/datasets/kanchana1990/data-science-freelancer-listingsupwork-dataset
+- cost-of-living_v2: https://www.numbeo.com
+- economic_freedom: https://www.heritage.org/index
+- internet broadband and mobile speeds by country: https://www.speedtest.net/global-index
+- World Happiness Index by Reports 2013-2023 no nulls: https://resources.unsdsn.org/world-happiness-report-2013
 ### Data Cleaning
 Due to constraints in my current laptop setup, MySQL is unavailable. Nevertheless, given the manageable size of the data, I have opted to import it into Microsoft Access. As analysts, it's crucial for us to remain flexible and adapt our methods to ensure that our work progresses smoothly under any circumstances.
 
@@ -359,7 +359,7 @@ The "Composite Score," which integrates all key metrics, correlates weakly with 
 2. For Policy Makers, revise tax policies to benefit remote workers, possibly including deductions for home office expenses and internet bills.
 
 ## Visualization
-Tableau Public Dashboards: 
+Tableau Public Dashboard: [https://public.tableau.com/shared/C88B8XJXY?:display_count=n&:origin=viz_share_link](https://public.tableau.com/views/RemoteWorkingInsightsforDataScientistsonUpwork_com/Dashboard1?:language=en-GB&publish=yes&:sid=&:display_count=n&:origin=viz_share_link)
 
 ## Wrap up
 ### My thought
