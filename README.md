@@ -58,10 +58,10 @@ A detailed report, a set of actionable insights and recommendations.
 The primary dataset from Upwork.com provides foundational information about data scientists' salaries, job frequency, and the nature of remote work engagements. However, to perform a comprehensive analysis, it is crucial to incorporate broader factors.The additional datasets were chosen by providing context on living costs, tax rates, and internet quality across different locations. 
 ### Data Source
 - upwork_data_scientists: https://www.kaggle.com/datasets/kanchana1990/data-science-freelancer-listingsupwork-dataset
-- cost-of-living_v2: https://www.numbeo.com
-- economic_freedom: https://www.heritage.org/index
-- internet broadband and mobile speeds by country: https://www.speedtest.net/global-index
 - World Happiness Index by Reports 2013-2023 no nulls: https://resources.unsdsn.org/world-happiness-report-2013
+- internet broadband and mobile speeds by country: https://www.speedtest.net/global-index
+- economic_freedom: https://www.heritage.org/index
+- cost-of-living_v2: https://www.numbeo.com
 ### Data Cleaning
 Due to constraints in my current laptop setup, MySQL is unavailable. Nevertheless, given the manageable size of the data, I have opted to import it into Microsoft Access. As analysts, it's crucial for us to remain flexible and adapt our methods to ensure that our work progresses smoothly under any circumstances.
 
@@ -360,6 +360,9 @@ The "Composite Score," which integrates all key metrics, correlates weakly with 
 
 ## Visualization
 Tableau Public Dashboard: [https://public.tableau.com/shared/C88B8XJXY?:display_count=n&:origin=viz_share_link](https://public.tableau.com/views/RemoteWorkingInsightsforDataScientistsonUpwork_com/Dashboard1?:language=en-GB&publish=yes&:sid=&:display_count=n&:origin=viz_share_link)
+
+![data-scientist-on-upwork](data-scientist-on-upwork.png)
+
 
 ## Wrap up
 ### My thought
