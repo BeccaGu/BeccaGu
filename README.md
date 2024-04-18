@@ -1,6 +1,6 @@
 # Remote Working Insights for Data Scientists on Upwork.com - SQL | Python | Tableau
 
-#### I am pleased to present 'Remote Working Insights of Geographic Arbitrage for Data Scientists👩‍💻: A Data Analysis Project,' which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
+#### I am pleased to present "Remote Working Insights for Data Scientists on Upwork.com👩‍💻: A Data Analysis Project", which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
 
 ## Outline
 - Introduction
@@ -16,8 +16,9 @@
   - Recommendation
 - Visualization by Tableau
 - Wrap up
-  - My thought
   - limitation
+  - Consideration
+  - My thought
 
 ## Introduction
 Upwork.com is a key platform for data scientists pursuing remote work. This project explores geographic arbitrage by analyzing salaries, living costs, and taxes across different global regions. Using data from Upwork and other sources, the analysis identifies the most economically advantageous locations for remote data scientists. By integrating metrics like internet quality and local taxation, this initiative aims to optimize economic benefits and support strategic decision-making for data scientists working remotely.
@@ -58,10 +59,10 @@ A detailed report, a set of actionable insights and recommendations.
 The primary dataset from Upwork.com provides foundational information about data scientists' salaries, job frequency, and the nature of remote work engagements. However, to perform a comprehensive analysis, it is crucial to incorporate broader factors.The additional datasets were chosen by providing context on living costs, tax rates, and internet quality across different locations. 
 ### Data Source
 - upwork_data_scientists: https://www.kaggle.com/datasets/kanchana1990/data-science-freelancer-listingsupwork-dataset
-- cost-of-living_v2: https://www.numbeo.com
-- economic_freedom: https://www.heritage.org/index
-- internet broadband and mobile speeds by country: https://www.speedtest.net/global-index
 - World Happiness Index by Reports 2013-2023 no nulls: https://resources.unsdsn.org/world-happiness-report-2013
+- internet broadband and mobile speeds by country: https://www.speedtest.net/global-index
+- economic_freedom: https://www.heritage.org/index
+- cost-of-living_v2: https://www.numbeo.com
 ### Data Cleaning
 Due to constraints in my current laptop setup, MySQL is unavailable. Nevertheless, given the manageable size of the data, I have opted to import it into Microsoft Access. As analysts, it's crucial for us to remain flexible and adapt our methods to ensure that our work progresses smoothly under any circumstances.
 
@@ -361,11 +362,16 @@ The "Composite Score," which integrates all key metrics, correlates weakly with 
 ## Visualization
 Tableau Public Dashboard: [https://public.tableau.com/shared/C88B8XJXY?:display_count=n&:origin=viz_share_link](https://public.tableau.com/views/RemoteWorkingInsightsforDataScientistsonUpwork_com/Dashboard1?:language=en-GB&publish=yes&:sid=&:display_count=n&:origin=viz_share_link)
 
-## Wrap up
-### My thought
-Driven by a profound personal interest, this project has established the foundation for my venture into data analytics, providing essential insights into the remote work environment for data scientists, based on 2022 data from Upwork.com spanning 25 countries. While aware of its limitations in scope, this undertaking is a vital first stride toward mastering analytical complexities. As I advance, my aim is to augment this fundamental work and branching into further fields that pique my curiosity.
+![data-scientist-on-upwork](data-scientist-on-upwork.png)
 
+## Wrap up
 ### limitation
 - This project is anchored in 2022 data primarily sourced from Upwork.com, which, might not encompass the global remote work landscape for data scientists in its entirety. With representation from 25 countries, the study may not capture the full geographic diversity, potentially limiting the broader applicability of its insights. As economic conditions such as cost of living, tax rates, and internet costs evolve, the project's conclusions will require regular updates to remain relevant.
 - Discrepancies in data reporting standards and the economic realities across different countries pose a challenge for creating uniform cross-country comparisons. These factors must be considered when interpreting the study's findings and underscore the necessity for ongoing data monitoring and review to adapt to the dynamic remote work environment.
 - The current regression model, indicating a low R-squared value, hints at the existence of other significant variables not included in the analysis that may influence the happiness index. The devised "Remote Work Score," while a useful tool, is constructed from selectively weighted metrics that may not fully reflect the multifaceted nature of remote work quality. Additionally, internet quality assessments based on Mbps metrics do not address the critical aspects of connectivity stability and reliability.
+
+### Considerations
+In this project, it is crucial to prioritize Data Privacy and Ethical Reporting. Ensuring confidentiality and compliance with relevant data protection regulations is imperative, alongside maintaining impartiality and responsibility in the dissemination of findings.
+
+### My thought
+Driven by a profound personal interest, this project has established the foundation for my venture into data analytics, providing essential insights into the remote work environment for data scientists, based on 2022 data from Upwork.com spanning 25 countries. While aware of its limitations in scope, this undertaking is a vital first stride toward mastering analytical complexities. As I advance, my aim is to augment this fundamental work and branching into further fields that pique my curiosity.
