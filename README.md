@@ -2,35 +2,28 @@
 
 #### I am pleased to present "Remote Working Insights for Data Scientists on Upwork.com👩‍💻: A Data Analysis Project", which utilizes SQL, Python, and Tableau. This project marks a significant step in my transition to a Business Analyst role. It combines rigorous data analysis with sophisticated visualization techniques to deliver comprehensive insights into the remote working conditions of data scientists across various countries.
 
-## Outline
-- Introduction
-  - Problem Statement
-  - Technologies Used
-  - Aims Grid
-- Data Preparation by SQL
-  - Data Sources
-  - Data Cleaning
-- Data Analysis by Python
-- Result Interpretation
-  - Statistical Summary
-  - Recommendation
-- Visualization by Tableau
-- Wrap up
-  - limitation
-  - Consideration
-  - My thought
+## Final Visual Presentation
+Tableau Public Dashboard: [https://public.tableau.com/shared/C88B8XJXY?:display_count=n&:origin=viz_share_link](https://public.tableau.com/views/RemoteWorkingInsightsforDataScientistsonUpwork_com/Dashboard1?:language=en-GB&publish=yes&:sid=&:display_count=n&:origin=viz_share_link)
 
-## Introduction
+![data-scientist-on-upwork](final-visual-presentation-1.png)
+
+⬇️⬇️More details can be explored by clicking on a country on the left-side map⬇️⬇️
+![data-scientist-on-upwork](final-visual-presentation-2.png)
+
+## Workflow
+![outline](outline.png)
+
+## Project Introduction
 Upwork.com is a key platform for data scientists pursuing remote work. This project explores geographic arbitrage by analyzing salaries, living costs, and taxes across different global regions. Using data from Upwork and other sources, the analysis identifies the most economically advantageous locations for remote data scientists. By integrating metrics like internet quality and local taxation, this initiative aims to optimize economic benefits and support strategic decision-making for data scientists working remotely.
 
-### Problem Statements
+### Problem Statement
 - Q1: Which locations offer the best balance between earnings and living expenses?
 - Q2: Which regions provide the most favorable tax environments for data scientists?
 - Q3: Where can data scientists enjoy the highest net disposable income after accounting for living costs and taxes?
 - Q4: How does the availability of jobs correlate with local internet speeds?
 - Q5: Which regions offer the most conducive conditions for remote work?
 
-### Technologies used
+### Technologies Used
 - Microsoft Access  | SQL Server
 - Python
 - Tableau
@@ -55,9 +48,9 @@ A detailed report, a set of actionable insights and recommendations.
 - Positive feedback and utility from the intended audience (data scientists) about remote work locations.
 - A published set of recommendations that are adopted by at least one company or have influenced policy adjustments.
 
-## Data Preparation 
+## Data Preparation Using SQL
 The primary dataset from Upwork.com provides foundational information about data scientists' salaries, job frequency, and the nature of remote work engagements. However, to perform a comprehensive analysis, it is crucial to incorporate broader factors.The additional datasets were chosen by providing context on living costs, tax rates, and internet quality across different locations. 
-### Data Source
+### Data Sources
 - upwork_data_scientists: https://www.kaggle.com/datasets/kanchana1990/data-science-freelancer-listingsupwork-dataset
 - World Happiness Index by Reports 2013-2023 no nulls: https://resources.unsdsn.org/world-happiness-report-2013
 - internet broadband and mobile speeds by country: https://www.speedtest.net/global-index
@@ -143,7 +136,7 @@ WHERE Country = 'Yemen';
 ```
 
 
-## Data Analysis by Python
+## Data Analysis Using Python
 ### Data Overview
 The dataset contains the following columns:
 Country: Name of the country.
@@ -342,7 +335,7 @@ plt.show()
 
 regression_summary
 ```
-## Result Interpretation 
+## Result Interpretation
 ### Statistical Summary
 This dataset spans 25 countries and includes metrics like the number of data scientists, McDonald's meal cost, internet costs, happiness index, broadband and mobile Mbps speeds, tax burden, average hourly rate, job success rate, total hours worked, and number of jobs. Key findings include:
 
@@ -359,13 +352,8 @@ The "Composite Score," which integrates all key metrics, correlates weakly with 
 1. For Governments, improve remote work environments by upgrading digital infrastructures, such as broadband and mobile internet services, including subsidies for high-speed internet in rural areas.
 2. For Policy Makers, revise tax policies to benefit remote workers, possibly including deductions for home office expenses and internet bills.
 
-## Visualization
-Tableau Public Dashboard: [https://public.tableau.com/shared/C88B8XJXY?:display_count=n&:origin=viz_share_link](https://public.tableau.com/views/RemoteWorkingInsightsforDataScientistsonUpwork_com/Dashboard1?:language=en-GB&publish=yes&:sid=&:display_count=n&:origin=viz_share_link)
-
-![data-scientist-on-upwork](data-scientist-on-upwork.png)
-
-## Wrap up
-### limitation
+## Wrap-up
+### Limitations
 - This project is anchored in 2022 data primarily sourced from Upwork.com, which, might not encompass the global remote work landscape for data scientists in its entirety. With representation from 25 countries, the study may not capture the full geographic diversity, potentially limiting the broader applicability of its insights. As economic conditions such as cost of living, tax rates, and internet costs evolve, the project's conclusions will require regular updates to remain relevant.
 - Discrepancies in data reporting standards and the economic realities across different countries pose a challenge for creating uniform cross-country comparisons. These factors must be considered when interpreting the study's findings and underscore the necessity for ongoing data monitoring and review to adapt to the dynamic remote work environment.
 - The current regression model, indicating a low R-squared value, hints at the existence of other significant variables not included in the analysis that may influence the happiness index. The devised "Remote Work Score," while a useful tool, is constructed from selectively weighted metrics that may not fully reflect the multifaceted nature of remote work quality. Additionally, internet quality assessments based on Mbps metrics do not address the critical aspects of connectivity stability and reliability.
@@ -373,5 +361,5 @@ Tableau Public Dashboard: [https://public.tableau.com/shared/C88B8XJXY?:display_
 ### Considerations
 In this project, it is crucial to prioritize Data Privacy and Ethical Reporting. Ensuring confidentiality and compliance with relevant data protection regulations is imperative, alongside maintaining impartiality and responsibility in the dissemination of findings.
 
-### My thought
-Driven by a profound personal interest, this project has established the foundation for my venture into data analytics, providing essential insights into the remote work environment for data scientists, based on 2022 data from Upwork.com spanning 25 countries. While aware of its limitations in scope, this undertaking is a vital first stride toward mastering analytical complexities. As I advance, my aim is to augment this fundamental work and branching into further fields that pique my curiosity.
+### My thoughts🤔
+Driven by a profound personal interest, this project has established the foundation for my venture into data analytics. While aware of its limitations in scope, this undertaking is a vital first stride toward mastering analytical complexities. As I advance, my aim is to augment this fundamental work and branching into further fields that pique my curiosity.
